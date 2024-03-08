@@ -1,6 +1,6 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Controller, Get } from '@nestjs/common';
-import { EventPattern } from '@nestjs/microservices';
+import { EventPattern, MessagePattern } from '@nestjs/microservices';
 
 type NotificationDTO = {
   email: string;
@@ -17,9 +17,9 @@ export class AppController {
 
 
 
-  @EventPattern('task_notification')
+  @MessagePattern('tp_task_manager')
   async askNotification(data: any) {
-    console.log("recebendo msg");
+    console.log("=== RECEIVE NOTIFICATION ====  " + JSON.stringify(data));
     console.log(data);
 
     const result = await this.mailerService.sendMail({
